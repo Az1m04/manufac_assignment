@@ -43,19 +43,19 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 ## Project Structure
 The project is structured as follows:
-public
-src                           folder contains the source code for the React application.
- -components                  folder contains React components for displaying the statistical tables.
- --utils                      folder contains utility functions for calculating statistics.
+
+public\
+src                           folder contains the source code for the React application.\
+ -components                  folder contains React components for displaying the statistical tables.\
+ --utils                      folder contains utility functions for calculating statistics.\
  --data                       folder contains the wine dataset in JSON format.
 
 
-
 ## Built With
-React - JavaScript library for building user interfaces.
-TypeScript - A statically typed superset of JavaScript.
-Yarn - Package manager for Node.js.
-Create React App - A tool for setting up React projects quickly.
+React - JavaScript library for building user interfaces.\
+TypeScript - A statically typed superset of JavaScript.\
+Yarn - Package manager for Node.js.\
+Create React App - A tool for setting up React projects quickly.\
 
 
 
