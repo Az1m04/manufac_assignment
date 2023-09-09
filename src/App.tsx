@@ -41,8 +41,9 @@ const parseFloatWithFallback = (value: number | string): number => {
 };
 
 const App: React.FC = () => {
-  const [classStatistics, setClassStatistics] = useState<ClassProps>({});
-  const [gamaStatistics, setGamaStatistics] = useState<GammaProps>({});
+  const [classStatistics, setClassStatistics] = useState<ClassProps>({}); //flavanoids statistics state
+  const [gamaStatistics, setGamaStatistics] = useState<GammaProps>({});  //gama statistics state
+  const [error, setError] = useState<string | null>(null); // Add an error state
 
   const calculateGamma = (wine: WineDataProps): WineDataPropsWithGamma => {
     const ash = parseFloatWithFallback(wine.Ash);
@@ -56,10 +57,17 @@ const App: React.FC = () => {
 
   useEffect(() => {
     try {
+
+      //Get the wine dataset
+      if (!wineData || wineData.length === 0) {
+        setError("Wine data not found."); 
+        return;
+      }
+
       // Group wine data by Alcohol class
       const groupedData: { [key: number]: WineDataProps[] } = {};
-
-      wineData?.forEach((wine) => {
+    
+      wineData?.length>0  &&  wineData?.forEach((wine) => {
         const alcoholClass = wine.Alcohol;
         if (!groupedData[alcoholClass]) {
           groupedData[alcoholClass] = [];
@@ -119,12 +127,24 @@ const App: React.FC = () => {
 
       setGamaStatistics(gammaStats);
     } catch (err: any) {
+      setError("An error occurred.");
       console.log("Error :", err.message);
     }
   }, []);
 
-  const classes = Object.keys(gamaStatistics).map(Number);
+  const classes = Object.keys(gamaStatistics).map(Number); // Header for each class
 
+
+ //Error handling if winData not found
+  if (error) {
+    return (
+      <div className="App">
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  //wine data is loaded 
   return (
     <div className="App">
       <div className="classes">
@@ -140,7 +160,7 @@ const App: React.FC = () => {
           </thead>
           <tbody>
             <tr>
-              <td>Mean</td>
+              <td className="stats"> Flavanoids <br/> Mean</td>
               {classes.map((classNum) => (
                 <td key={classNum}>
                   {classStatistics[classNum].mean.toFixed(3)}
@@ -148,7 +168,7 @@ const App: React.FC = () => {
               ))}
             </tr>
             <tr>
-              <td>Median</td>
+              <td className="stats">Flavanoids <br/> Median</td>
               {classes.map((classNum) => (
                 <td key={classNum}>
                   {classStatistics[classNum].median.toFixed(3)}
@@ -156,7 +176,7 @@ const App: React.FC = () => {
               ))}
             </tr>
             <tr>
-              <td>Mode</td>
+              <td className="stats"> Flavanoids <br/> Mode</td>
               {classes.map((classNum) => (
                 <td key={classNum}>
                   {classStatistics[classNum].mode.toFixed(3)}
@@ -179,7 +199,7 @@ const App: React.FC = () => {
           </thead>
           <tbody>
             <tr>
-              <td>Mean</td>
+              <td className="stats">Gamma <br/> Mean</td>
               {classes.map((classNum) => (
                 <td key={classNum}>
                   {gamaStatistics[classNum].mean.toFixed(3)}
@@ -187,7 +207,7 @@ const App: React.FC = () => {
               ))}
             </tr>
             <tr>
-              <td>Median</td>
+              <td className="stats">Gamma <br/> Median</td>
               {classes.map((classNum) => (
                 <td key={classNum}>
                   {gamaStatistics[classNum].median.toFixed(3)}
@@ -195,7 +215,7 @@ const App: React.FC = () => {
               ))}
             </tr>
             <tr>
-              <td>Mode</td>
+              <td className="stats">Gamma <br/> Mode</td>
               {classes.map((classNum) => (
                 <td key={classNum}>
                   {gamaStatistics[classNum].mode.toFixed(3)}

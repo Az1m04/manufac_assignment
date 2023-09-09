@@ -22,10 +22,15 @@ code {
   text-align: center;
 }
 table, th, td {
-  border: 1px solid;
+  border: 2px solid;
   border-collapse: collapse;
   table-layout: fixed;
   width: 200px;
   text-align: left;
   padding: 10px;
+  text-align: center;
+}
+
+.stats{
+  font-weight: bold;
 }
