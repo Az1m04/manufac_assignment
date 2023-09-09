@@ -25,4 +25,8 @@ The first table shows class-wise statistics for the "Flavanoids" property, inclu
 The second table shows class-wise statistics for the "Gamma" property, including mean, median, and mode.
 
 
+![image](https://github.com/Az1m04/manufac_assignment/assets/42888008/c76c3525-5b74-4383-b604-8c27cf660265)
+
+
+
 
